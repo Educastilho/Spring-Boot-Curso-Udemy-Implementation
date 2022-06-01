@@ -1,2 +1,2 @@
-# cursogit
-Repositório para prática do curso de git na plataforma alura.
+# Spring-Boot-Curso
+Repositório para prática do curso de Spring-Boot na plataforma udemy.
