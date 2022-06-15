@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import io.github.educastilho.domain.enums.StatusPedido;
 
 @Entity
 @Table(name = "pedido")
@@ -33,19 +37,26 @@ public class Pedido {
 	@Column(name = "total", scale = 2, precision = 20)
 	private BigDecimal total;
 	
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
+	
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itensPedido;
 	
 	public Pedido() {
 		
-	}
+	}	
 	
-	public Pedido(Cliente cliente, LocalDate dataPedido, BigDecimal total, List<ItemPedido> itensPedido) {
+	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, BigDecimal total, StatusPedido status,
+			List<ItemPedido> itensPedido) {
+		this.id = id;
 		this.cliente = cliente;
 		this.dataPedido = dataPedido;
 		this.total = total;
+		this.status = status;
 		this.itensPedido = itensPedido;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -77,10 +88,18 @@ public class Pedido {
 		this.itensPedido = itensPedido;
 	}
 
+	public StatusPedido getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPedido status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", dataPedido=" + dataPedido + ", total=" + total + "]";
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", dataPedido=" + dataPedido + ", total=" + total
+				+ ", status=" + status + ", itensPedido=" + itensPedido + "]";
 	}
-	
 
 }
