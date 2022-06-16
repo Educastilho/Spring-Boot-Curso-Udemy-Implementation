@@ -33,7 +33,7 @@ public class VendasApplication {
 		return args -> {
 			Cliente cliente = new Cliente();
 			cliente.setNome("Eduardo");
-			cliente.setCpf("1389504488");
+			cliente.setCpf("44461859002");
 			clientes.save(cliente);
 			
 			Produto produto = new Produto();

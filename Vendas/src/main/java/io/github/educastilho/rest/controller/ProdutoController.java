@@ -3,6 +3,8 @@ package io.github.educastilho.rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -48,7 +50,7 @@ public class ProdutoController {
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto save( @RequestBody Produto produto) {
+	public Produto save( @RequestBody @Valid Produto produto) {
 		Produto produto1 = produtos.save(produto);
 		if(produto1 != null) {
 			return produto1;
@@ -70,7 +72,7 @@ public class ProdutoController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizar( @PathVariable Integer id, @RequestBody Produto produto) {
+	public void atualizar( @PathVariable Integer id, @RequestBody @Valid Produto produto) {
 		produtos.findById(id).map(
 				produtoAtual -> {					
 					produto.setId(produtoAtual.getId());

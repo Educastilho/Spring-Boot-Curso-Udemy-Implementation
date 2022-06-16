@@ -16,6 +16,10 @@ public class ApiErrors {
 		super();
 	}
 
+	public ApiErrors(List<String> errors2) {
+		this.errors = errors2;
+	}
+
 	public List<String> getErrors() {
 		return errors;
 	}

@@ -3,6 +3,8 @@ package io.github.educastilho.rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -49,7 +51,7 @@ public class ClienteController {
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente save( @RequestBody Cliente cliente) {
+	public Cliente save( @RequestBody @Valid Cliente cliente) {
 		Cliente cliente1 = clientes.save(cliente);
 		if(cliente1 != null) {
 			return cliente1;
@@ -71,7 +73,7 @@ public class ClienteController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizar( @PathVariable Integer id, @RequestBody Cliente cliente) {
+	public void atualizar( @PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
 		clientes.findById(id).map(
 				clienteAtual -> {					
 					cliente.setId(clienteAtual.getId());
