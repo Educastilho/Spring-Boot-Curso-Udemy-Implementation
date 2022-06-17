@@ -1,3 +1,7 @@
+create database vendas;
+
+use vendas;
+
 CREATE TABLE CLIENTE (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     NOME VARCHAR(100),
@@ -24,3 +28,17 @@ CREATE TABLE ITEM_PEDIDO (
     PRODUTO_ID INTEGER REFERENCES PRODUTO(ID),
     QUANTIDADE INTEGER
 );
+
+create table usuario (
+        ID integer not null,
+        ADMIN boolean default false,
+        LOGIN varchar(255),
+        SENHA varchar(255),
+        primary key (id)
+    );
+
+alter table ITEM_PEDIDO add constraint foreign key (PEDIDO_ID) references pedido (ID);
+
+alter table ITEM_PEDIDO add constraint foreign key (PRODUTO_ID) references produto (ID);
+
+alter table PEDIDO add constraint foreign key (CLIENTE_ID) references cliente (ID);

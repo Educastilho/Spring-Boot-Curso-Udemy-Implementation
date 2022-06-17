@@ -39,7 +39,7 @@ public class ProdutoController {
 //			,consumes = {"application/json", "application/xml", "text/html"}, 
 //			produces = {"application/json", "application/xml", "text/html"}
 	)
-	public Produto getClienteById(@PathVariable("id") Integer id) {
+	public Produto getProdutoById(@PathVariable("id") Integer id) {
 		Optional<Produto> produto1 =  produtos.findById(id);
 		if(produto1.isPresent()) {
 			return produto1.get();

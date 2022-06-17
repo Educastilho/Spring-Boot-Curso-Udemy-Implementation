@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.educastilho.domain.entity.Cliente;
 import io.github.educastilho.domain.entity.Pedido;
 import io.github.educastilho.domain.entity.Produto;
+import io.github.educastilho.domain.entity.Usuario;
 import io.github.educastilho.domain.repository.Clientes;
 import io.github.educastilho.domain.repository.Pedidos;
 import io.github.educastilho.domain.repository.Produtos;
+import io.github.educastilho.domain.repository.UsuarioRepository;
+import io.github.educastilho.service.impl.UsuarioServiceImpl;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"io.github.educastilho", "io.github.educastilho.repository", "io.github.educastilho.service" })
@@ -29,7 +32,7 @@ import io.github.educastilho.domain.repository.Produtos;
 public class VendasApplication {
 
 	@Bean
-	public CommandLineRunner init(@Autowired Clientes clientes, @Autowired Produtos produtos) {
+	public CommandLineRunner init(@Autowired Clientes clientes, @Autowired Produtos produtos, @Autowired UsuarioServiceImpl usuarioservice) {
 		return args -> {
 			Cliente cliente = new Cliente();
 			cliente.setNome("Eduardo");
@@ -40,6 +43,12 @@ public class VendasApplication {
 			produto.setDescricao("Papel");
 			produto.setPreco(BigDecimal.valueOf(0.5));
 			produtos.save(produto);
+			
+			Usuario usuario = new Usuario();
+			usuario.setLogin("Educastilho");
+			usuario.setSenha("123");
+			usuarioservice.save(usuario);
+			
 			
 		};
 	}
