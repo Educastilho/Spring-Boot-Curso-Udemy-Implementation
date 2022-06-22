@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,6 +31,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public OncePerRequestFilter jwtFilter() {
 		return new JwtAuthFilter(jwtService, usuarioService);
 	}
+	
+//	private static final String[] AUTH_WHITELIST = {
+//	        // -- Swagger UI v2
+//	        "/v2/api-docs",
+//	        "/swagger-resources",
+//	        "/swagger-resources/**",
+//	        "/configuration/ui",
+//	        "/configuration/**",
+//	        "/configuration/security",
+//	        "/swagger-ui.html",
+//	        "/webjars/**",
+//	        // -- Swagger UI v3 (OpenAPI)
+//	        "/v3/api-docs/**",
+//	        "/swagger-ui/**",
+//	        "/swagger-ui/",
+//	        "/swagger-ui"
+//	        // other public endpoints of your API may be appended to this array
+//	};
 	
 	
 //	@Override
@@ -62,5 +81,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//.formLogin(/*"/login.html"*/);
 	}
 
-	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(
+					"/v2/api-docs",
+					"/swagger-resources",
+					"/swagger-resources/**",
+					"/configuration/ui",
+					"/configuration/**",
+					"/configuration/security",
+					"/swagger-ui/**",
+					"/swagger-ui.html",
+					"/webjars/**");
+		
+	}
+		
 }

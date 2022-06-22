@@ -30,11 +30,10 @@ CREATE TABLE ITEM_PEDIDO (
 );
 
 create table usuario (
-        ID integer not null,
+        ID INTEGER PRIMARY KEY AUTO_INCREMENT,
         ADMIN boolean default false,
-        LOGIN varchar(255),
-        SENHA varchar(255),
-        primary key (id)
+        LOGIN VARCHAR(255),
+        SENHA VARCHAR(255)
     );
 
 alter table ITEM_PEDIDO add constraint foreign key (PEDIDO_ID) references pedido (ID);

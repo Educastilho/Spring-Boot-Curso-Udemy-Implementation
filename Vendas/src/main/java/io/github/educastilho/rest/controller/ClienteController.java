@@ -26,10 +26,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import io.github.educastilho.domain.entity.Cliente;
 import io.github.educastilho.domain.repository.Clientes;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Controller
 @RequestMapping("/api/clientes")
 @ResponseBody
+@Api("Clientes")
 public class ClienteController {
 	
 	@Autowired
@@ -40,7 +46,12 @@ public class ClienteController {
 //			,consumes = {"application/json", "application/xml", "text/html"}, 
 //			produces = {"application/json", "application/xml", "text/html"}
 	)
-	public Cliente getClienteById(@PathVariable("id") Integer id) {
+	@ApiOperation("Obter Detalhes de Um Cliente")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "Cliente encontrado"),
+			@ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
+	})
+	public Cliente getClienteById(@PathVariable("id") @ApiParam("Id do Cliente") Integer id) {
 		Optional<Cliente> cliente1 =  clientes.findById(id);
 		if(cliente1.isPresent()) {
 			return cliente1.get();
@@ -51,6 +62,11 @@ public class ClienteController {
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation("Salvar um novo Cliente")
+	@ApiResponses({
+			@ApiResponse(code = 201, message = "Cliente salvo com sucesso"),
+			@ApiResponse(code = 400, message = "Erro de Validação")
+	})
 	public Cliente save( @RequestBody @Valid Cliente cliente) {
 		Cliente cliente1 = clientes.save(cliente);
 		if(cliente1 != null) {
